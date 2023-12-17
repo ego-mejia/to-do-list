@@ -1,10 +1,6 @@
 // import logo from "./platzi.webp";
-import { TodoCounter } from "../TodoCounter";
-import { TodoSearch } from "../TodoSearch";
-import { TodoList } from "../TodoList";
-import { TodoItem } from "../TodoItem";
-import { CreateTodoButton } from "../CreateTodoButton";
 import { useLocalStorage } from "./useLocalStorage";
+import { AppUI } from "./AppUI";
 import React from "react";
 import "./App.css";
 
@@ -53,28 +49,15 @@ function App() {
   };
 
   return (
-    <>
-      <TodoCounter completed={completedTodos} total={totalTodos} />
-      <TodoSearch searchValue={searchValue} setSearchValue={setSearchValue} />
-
-      <TodoList searchValue={searchValue} setSearchValue={setSearchValue}>
-        {searchedTodos.map((todo) => (
-          <TodoItem
-            key={todo.text}
-            text={todo.text}
-            completed={todo.completed}
-            onComplete={() => {
-              completeTodo(todo.text);
-            }}
-            onDelete={() => {
-              deleteTodo(todo.text);
-            }}
-          />
-        ))}
-      </TodoList>
-
-      <CreateTodoButton />
-    </>
+    <AppUI
+      completedTodos={completedTodos}
+      totalTodos={totalTodos}
+      searchValue={searchValue}
+      setSearchValue={setSearchValue}
+      searchedTodos={searchedTodos}
+      completeTodo={completeTodo}
+      deleteTodo={deleteTodo}
+    />
   );
 }
 
