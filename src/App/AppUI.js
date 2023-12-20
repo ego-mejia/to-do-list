@@ -21,47 +21,44 @@ function AppUI() {
   //   completeTodo,
   //   deleteTodo,
   // }
+  const {
+    loading,
+    error,
+    searchValue,
+    setSearchValue,
+    searchedTodos,
+    completeTodo,
+    deleteTodo,
+  } = React.useContext(TodoContext);
+
   return (
     <>
       <TodoCounter />
       <TodoSearch />
-
-      <TodoContext.Consumer>
-        {({
-          loading,
-          error,
-          searchValue,
-          setSearchValue,
-          searchedTodos,
-          completeTodo,
-          deleteTodo,
-        }) => {
-          <TodoList searchValue={searchValue} setSearchValue={setSearchValue}>
-            {loading && (
-              <>
-                <TodosLoading />
-                <TodosLoading />
-                <TodosLoading />
-              </>
-            )}
-            {error && <TodosError />}
-            {!loading && searchedTodos.length == 0 && <EmptyTodos />}
-            {searchedTodos.map((todo) => (
-              <TodoItem
-                key={todo.text}
-                text={todo.text}
-                completed={todo.completed}
-                onComplete={() => {
-                  completeTodo(todo.text);
-                }}
-                onDelete={() => {
-                  deleteTodo(todo.text);
-                }}
-              />
-            ))}
-          </TodoList>;
-        }}
-      </TodoContext.Consumer>
+      <TodoList searchValue={searchValue} setSearchValue={setSearchValue}>
+        {loading && (
+          <>
+            <TodosLoading />
+            <TodosLoading />
+            <TodosLoading />
+          </>
+        )}
+        {error && <TodosError />}
+        {!loading && searchedTodos.length == 0 && <EmptyTodos />}
+        {searchedTodos.map((todo) => (
+          <TodoItem
+            key={todo.text}
+            text={todo.text}
+            completed={todo.completed}
+            onComplete={() => {
+              completeTodo(todo.text);
+            }}
+            onDelete={() => {
+              deleteTodo(todo.text);
+            }}
+          />
+        ))}
+      </TodoList>
 
       <CreateTodoButton />
     </>
